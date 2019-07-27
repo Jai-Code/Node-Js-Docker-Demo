@@ -1,0 +1,5 @@
+FROM mysql:8.0.2
+
+ENV MYSQL_ROOT_PASSWORD root
+
+ENV MYSQL_DATABASE node_crud
