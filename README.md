@@ -5,26 +5,18 @@
 ## Quick Start
 
 ```bash
-# Run in Docker
-docker-compose up
-# use -d flag to run in background
+# Build Mysql Image
+docker build -t custom/mysql -f Dockerfile_mysql .
 
-# Tear down
-docker-compose down
+# Run Mysql in background
+docker run -d --name mysql custom/mysql
 
-# To be able to edit files, add volume to compose file
-volumes: ['./:/usr/src/app']
+# Build Nodejs Image
+docker build -t custom/nodejs -f Dockerfile_nodejs .
 
-# To re-build
-docker-compose --build
-```
-## Normal Start
-You can start node application with usual 'npm start' command as well.
-* Make sure to edit server.js and update the host with your host address. 
-* App uses default 3306 database connectivity port.
-* Create database with the name 'node_crud'.
-
-"Happy coding :)"
+# Run Nodejs in background
+docker run -d --name nodejs --link mysql:mysql-db -p 3000:3000 custom/nodejs
+# --link mysql:mysql-db (use mysql container in nodejs as the name of mysql-db)
 
 
 
