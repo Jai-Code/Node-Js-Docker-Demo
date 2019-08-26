@@ -1,0 +1,29 @@
+version: '3.7'
+services:
+  mysql-db:
+    build:
+      context: .
+      dockerfile: Dockerfile_mysql
+    image: custom/mysql:v1
+    networks:
+      - backend
+    volumes:
+      - mysql-data:/var/lib/mysql
+  
+  mynodejs:
+    build:
+      context: .
+      dockerfile: Dockerfile_nodejs
+    image: custom/mynodes:v1
+    ports:
+      - 3168:3000
+    networks:
+      - backend
+    depends_on:
+      - mysql-db
+
+networks:
+  backend:
+
+volumes:
+  mysql-data:
